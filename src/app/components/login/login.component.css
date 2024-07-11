@@ -1,0 +1,75 @@
+/* login-form.styles.css */
+.form-container {
+    width: 350px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .form-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .form-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-container label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  .form-container input[type=text],
+  .form-container input[type=password] {
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .form-container button[type=submit] {
+    background-color: #e10d82;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  
+  .form-container button[type=submit]:hover {
+    background-color: #e10d82;
+  }
+  
+  .form-container .bottom-links {
+    text-align: center;
+    margin-top: 16px;
+  }
+  
+  .form-container .bottom-links a {
+    color: #e10d82;
+    text-decoration: none;
+    margin: 0 8px;
+  }
+  
+  .form-container .bottom-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .form-container .error-message {
+    color: #f44336;
+    margin-top: 10px;
+  }
+  
