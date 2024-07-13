@@ -18,29 +18,29 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
-
       address: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern('[0-9]{8}')]],
-      role: ['user', Validators.required],
-
+      phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{8}')]],
+      role: ['USER', Validators.required],
     });
   }
 
   register() {
     if (this.registerForm.valid) {
-      this.http.post('http://localhost:8080/auth/register', this.registerForm.value)
-        .subscribe((response: any) => {
-          console.log('Registration successful: ', response);
-          this.router.navigate(['/login']);
-        }, (error: any) => {
-          console.error('Registration error: ', error);
-          // Handle error (e.g., show error message to the user)
-        });
+      const formData = { ...this.registerForm.value, role: this.registerForm.value.role.toUpperCase() };
+      this.http.post('http://localhost:8081/auth/register', formData)
+        .subscribe(
+          (response: any) => {
+            console.log('Registration successful: ', response);
+            this.router.navigate(['/login']);
+          },
+          (error: any) => {
+            console.error('Registration error: ', error);
+          }
+        );
     } else {
-      console.error('Form validation failed');
-      // Handle form validation errors (e.g., show validation messages to the user)
+      console.error('Form validation failed', this.registerForm.value, this.registerForm.errors);
     }
   }
 }
