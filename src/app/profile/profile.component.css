@@ -1,0 +1,45 @@
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .jumbotron {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .jumbotron h3 {
+    margin-top: 0;
+  }
+  
+  .profile-info {
+    margin-top: 20px;
+  }
+  
+  .roles {
+    margin-top: 20px;
+  }
+  
+  .roles ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .roles li {
+    margin-bottom: 10px;
+  }
+  
+  .logged-out {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
