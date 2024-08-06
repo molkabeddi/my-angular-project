@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Article } from '../models/article.interface';
 import { ArticleService } from '../services/article.service';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-article',
@@ -8,36 +9,44 @@ import { ArticleService } from '../services/article.service';
   styleUrls: ['./add-article.component.css']
 })
 export class AddArticleComponent {
-  Article: Article = {
+  article = {
     title: '',
-    description: '',
-    published: false
+    content: '',
+    published: false,
+    category: '',
+    price: 0,
+    image: ''
   };
-  submitted = false;
+  message = '';
+  image: File | null = null;
 
-  constructor(private ArticleService: ArticleService) {}
+  constructor(private articleService: ArticleService, private router: Router) { }
 
-  saveArticle(): void {
-    const data = {
-      title: this.Article.title,
-      description: this.Article.description
-    };
-
-    this.ArticleService.create(data).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.submitted = true;
-      },
-      error: (e) => console.error(e)
-    });
+  onFileChange(event: any): void {
+    this.image = event.target.files[0];
   }
 
-  newArticle(): void {
-    this.submitted = false;
-    this.Article = {
-      title: '',
-      description: '',
-      published: false
-    };
+  saveArticle(): void {
+    const formData = new FormData();
+    formData.append('title', this.article.title);
+    formData.append('content', this.article.content);
+    formData.append('published', String(this.article.published));
+    formData.append('category', this.article.category);
+    formData.append('price', String(this.article.price));
+    if (this.image) {
+      formData.append('image', this.image);
+    }
+
+    this.articleService.create(formData).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.message = 'Article added successfully!';
+        this.router.navigate(['/shop']);
+      },
+      error: (e: HttpErrorResponse) => {
+        console.error(e);
+        this.message = 'Failed to add article.';
+      }
+    });
   }
 }

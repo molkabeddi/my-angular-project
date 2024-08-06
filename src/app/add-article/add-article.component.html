@@ -1,35 +1,64 @@
-<div>
-    <div class="submit-form">
-      <div *ngIf="!submitted">
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            required
-            [(ngModel)]="Article.title"
-            name="title"
-          />
-        </div>
-  
-        <div class="form-group">
-          <label for="description">Description</label>
-          <input
-            class="form-control"
-            id="description"
-            required
-            [(ngModel)]="Article.description"
-            name="description"
-          />
-        </div>
-  
-        <button (click)="saveArticle()" class="btn btn-success">Submit</button>
-      </div>
-  
-      <div *ngIf="submitted">
-        <h4>Article was submitted successfully!</h4>
-        <button class="btn btn-success" (click)="newArticle()">Add</button>
-      </div>
-    </div>
-  </div>
+<div class="form-group">
+  <label for="title">Title</label>
+  <input
+    type="text"
+    class="form-control"
+    id="title"
+    [(ngModel)]="article.title"
+    placeholder="Enter title"
+  />
+</div>
+
+<div class="form-group">
+  <label for="content">Content</label>
+  <textarea
+    class="form-control"
+    id="content"
+    [(ngModel)]="article.content"
+    placeholder="Enter content"
+  ></textarea>
+</div>
+
+<div class="form-group">
+  <label for="published">Published</label>
+  <input
+    type="checkbox"
+    class="form-control"
+    id="published"
+    [(ngModel)]="article.published"
+  />
+</div>
+
+<div class="form-group">
+  <label for="category">Category</label>
+  <input
+    type="text"
+    class="form-control"
+    id="category"
+    [(ngModel)]="article.category"
+    placeholder="Enter category"
+  />
+</div>
+
+<div class="form-group">
+  <label for="price">Price</label>
+  <input
+    type="number"
+    class="form-control"
+    id="price"
+    [(ngModel)]="article.price"
+    placeholder="Enter price"
+  />
+</div>
+
+<div class="form-group">
+  <label for="image">Image</label>
+  <input
+    type="file"
+    class="form-control"
+    id="image"
+    (change)="onFileChange($event)"
+  />
+</div>
+
+<button (click)="saveArticle()">Save</button>

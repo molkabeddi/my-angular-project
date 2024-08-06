@@ -1,30 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { Component } from '@angular/core';
+import { TokenStorageService } from '../services/TokenStorageService';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
-  content?: string;
+export class HomeComponent {private roles: string[] = [];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  showAddArticleButton = false;
+  showCartButton=false;
+  username?: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.userService.getPublicContent().subscribe(
-      data => {
-        this.content = data; // Ensure data is a string or can be displayed directly
-      },
-      err => {
-        // Check if err.error is valid JSON before parsing
-        try {
-          const errorResponse = JSON.parse(err.error);
-          this.content = errorResponse.message || 'An error occurred';
-        } catch {
-          this.content = 'An error occurred';
-        }
-      }
-    );
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.showAddArticleButton = this.roles.includes('ROLE_ADMIN');
+      this.showCartButton = this.roles.includes('ROLE_USER');
+
+
+      this.username = user.username;
+    }
+  }
+
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
   }
 }
+
+
+

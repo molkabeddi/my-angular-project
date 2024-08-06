@@ -1,6 +1,11 @@
 export interface Article {
-    id?: number;
-    title?: string;
-    description?: string;
-    published?: boolean;
-  }
+  id?: number; // Add this line to include id
+
+  title: string;
+  content: string;
+  published: boolean;
+  image?: string;
+  category: string;
+  price: number;
+  // Add this line for image
+}
