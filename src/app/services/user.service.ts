@@ -9,6 +9,7 @@ const API_URL = 'http://localhost:8080/api/test/';
   providedIn: 'root'
 })
 export class UserService {
+  userId: string = ''; // Initialize with an empty string
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +31,14 @@ export class UserService {
 
   getArticles(): Observable<any[]> {
     return this.http.get<any[]>(API_URL + 'articles');
+  }
+
+  setUserId(userId: string) {
+    this.userId = userId;
+  }
+
+  getUserId(): string {
+    return this.userId;
   }
 
   getUserRole(): ERole {

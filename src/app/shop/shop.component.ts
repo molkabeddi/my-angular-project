@@ -11,6 +11,7 @@ import { CartService } from '../services/cart.service'; // Import CartService
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent {
+  userId: string = '20'; // Replace '20' with the actual user ID
     articles?: Article[];
     currentArticle: Article = {
       title: '',
@@ -127,15 +128,20 @@ export class ShopComponent {
   
     addToCart(article: Article): void {
       const cartItem: CartItem = {
-        id: article.id ?? 0, // Ensure id is defined
-        name: article.title, // Assuming `name` is the title of the article
+        id: article.id,
+        articleId: article.id,
+        name: article.title,
         price: article.price,
-        quantity: 1 // Default quantity is 1
+        quantity: 1
       };
     
-      console.log('Attempting to add to cart:', cartItem);
-    
-      
+      this.cartService.addToCart(this.userId, cartItem).subscribe({
+        next: (res) => {
+          console.log(res);
+          // Update the cart items list
+        },
+        error: (e) => console.error(e)
+      });
     }
     
   }
